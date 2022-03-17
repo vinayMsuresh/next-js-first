@@ -12,6 +12,13 @@ function Home(){
       <a>Blog</a>
     </Link> <br/>
 
+    <Link href='/users'>
+      <a>Users</a>
+    </Link> <br/>
+    <Link href='/posts'>
+      <a>Posts</a>
+    </Link> <br/>
+
     <button onClick={()=>router.push('/product')}>Products</button>
   </>
 }
