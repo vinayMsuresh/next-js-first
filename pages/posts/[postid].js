@@ -12,42 +12,31 @@ function Post({post}){
 
 export default Post;
 export async function getStaticPaths(){
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-    const data = await response.json();
+    // const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    // const data = await response.json();
 
-    const paths = data.map(dt=>{
-        return {
-            params:{postid:`${dt.id}`}
-        }
-    });
+    // const paths = data.map(dt=>{
+    //     return {
+    //         params:{postid:`${dt.id}`}
+    //     }
+    // });
     return{
-    //     paths: [{
-    //         params:{postid:'1'}
-    //     },
-    //     {
-    //         params:{postid:'2'}
-    //     },
-    //     {
-    //         params:{postid:'3'}
-    //     },
-    //     {
-    //         params:{postid:'4'}
-    //     },
-    //     {
-    //         params:{postid:'5'}
-    //     },
-    // ],
-    paths:paths,
-    fallback:false
+        paths: [{
+            params:{postid:'1'}
+        },
+    ],
+    // paths:paths,
+    fallback:'blocking'
     }
 }
 export async function getStaticProps(context){
     const {params} = context;
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.postid}`);
+    const response = await fetch(`http://localhost:4000/posts/${params.postid}`);
     const data = await response.json();
     return {
         props:{
             post:data,
-        }
+        },
+        revalidate:10,
     }
 }
